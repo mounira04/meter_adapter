@@ -2,25 +2,24 @@ package com.meter.adapter.controller;
 
 import javax.jms.Queue;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.meter.adapter.exception.BusinessResourceException;
+import com.meter.adapter.conveter.ConvertData;
 import com.meter.adapter.model.MeterInformation;
-import com.meter.adapter.service.ConverterData;
 import com.meter.adapter.service.MeterService;
 
-@Controller
+import lombok.extern.slf4j.Slf4j;
+
+@RestController
+@RequestMapping("/meter")
+@Slf4j
 public class MeterController {
 
-	private static final Logger logger = LoggerFactory.getLogger(MeterController.class);
+//	private static final Logger logger = LoggerFactory.getLogger(MeterController.class);
 
 	@Autowired
 	private JmsTemplate jmsTemplate;
@@ -29,27 +28,27 @@ public class MeterController {
 	@Autowired
 	private MeterService meterService;
 	@Autowired
-	private ConverterData converterData;
+	private ConvertData converterData;
 
 	private String path;
 
-	@PostMapping(value = "/meter")
-	
-	public ResponseEntity<MeterInformation> saveMeter(@RequestBody MeterInformation meter) {
+	@PostMapping
+	public String saveMeter(MeterInformation meter) {
 
-		MeterInformation meterResult = meterService.getMeterInformationById(meter.getMeterId());
-		if (meterResult == null) {
-			logger.debug("Le meter " + meter.getMeterId() + " n'existe pas");
-			throw new BusinessResourceException("Meter not existant", "", HttpStatus.NOT_FOUND);
-		}
+//		MeterInformation meterResult = meterService.getMeterInformationById(meter.getMeterId());
+//		if (meterResult == null) {
+//			logger.debug("Le meter " + meter.getMeterId() + " n'existe pas");
+//			throw new BusinessResourceException("Meter not existant", "", HttpStatus.NOT_FOUND);
+//		}
 
-		if (meter.getFormatType() != null && meter.getMeterData() != null)
-
-		{
+		
+			System.out.println("first step");
 			path = converterData.ConvertToXmlFile(meter.getMeterData(), meter.getFormatType());
+			System.out.println("path");
 			jmsTemplate.convertAndSend(queue, path);
-		}
-		return null;
+		
+		log.info("hello");
+		return "HI";
 
 	}
 }
