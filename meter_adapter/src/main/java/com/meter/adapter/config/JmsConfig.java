@@ -12,12 +12,14 @@ import org.springframework.jms.core.JmsTemplate;
 @Configuration
 public class JmsConfig {
 
-	@Value("${activemq.broker-url}")
+	@Value("${spring.activemq.broker-url}")
 	private String brokerUrl;
+	@Value("${activemq.destination.queue}")
+	private String destination;
 
 	@Bean
 	public Queue queue() {
-		return new ActiveMQQueue("${destination.queue}");
+		return new ActiveMQQueue(destination);
 	}
 
 	@Bean
