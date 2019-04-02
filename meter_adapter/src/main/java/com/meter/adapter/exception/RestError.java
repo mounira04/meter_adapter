@@ -2,22 +2,34 @@ package com.meter.adapter.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class BusinessResourceExceptionResponse {
+public class RestError {
 
-	private String errorCode;
+	private int errorCode;
 	private String errorMessage;
 	private String requestURL;
 	private HttpStatus status;
 
-	public BusinessResourceExceptionResponse() {
+	
+
+	public RestError() {
+		super();
+		
 	}
 
-	public String getErrorCode() {
+	public RestError(int errorCode, String errorMessage, String requestURL, HttpStatus status) {
+		super();
+		this.errorCode = errorCode;
+		this.errorMessage = errorMessage;
+		this.requestURL = requestURL;
+		this.status = status;
+	}
+
+	public int getErrorCode() {
 		return errorCode;
 	}
 
-	public void setErrorCode(String errorCode) {
-		this.errorCode = errorCode;
+	public void setErrorCode(int i) {
+		this.errorCode = i;
 	}
 
 	public String getErrorMessage() {

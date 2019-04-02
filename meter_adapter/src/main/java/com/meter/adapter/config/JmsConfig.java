@@ -28,9 +28,8 @@ public class JmsConfig {
 	}
 
 	@Bean
-	public JmsTemplate jmsTemplate() {
-		JmsTemplate template = new JmsTemplate(connectionFactory());
+	public JmsTemplate jmsTemplate() {		
 
-		return template;
+		return new JmsTemplate(connectionFactory());
 	}
 }

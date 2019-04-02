@@ -7,6 +7,6 @@ import com.meter.adapter.model.MeterInformation;
 public interface MeterRepository extends JpaRepository<MeterInformation, Long>
 {
 
-	MeterInformation findOne(Long id);
+	
 
 }

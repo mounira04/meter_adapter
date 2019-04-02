@@ -2,13 +2,14 @@ package com.meter.adapter.conveter;
 
 import org.springframework.stereotype.Service;
 
-@Service(value="ConverterData")
+@Service
 public class ConvertData {
 
 	
-	public String ConvertToXmlFile(String data,String format) {
+	public String convertToXmlFile(String meterData,String formatType) {
 		
-		return "c:/dev";
+		
+		return meterData.concat(formatType);
 	}
 
 }
